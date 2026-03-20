@@ -208,3 +208,7 @@ __marimo__/
 
 # PTN repository (external dependency)
 ptn/
+
+# automation
+runner.sh
+runner.sh
