@@ -12,7 +12,7 @@ class OrderType(str, Enum):
 class Signal(BaseModel):
     trade_pair: str = Field(..., description="e.g. BTCUSD, EURUSD")
     order_type: OrderType
-    leverage: float = Field(default=0.5, ge=0.0, le=2.5)
+    leverage: float = Field(default=0.5, ge=0.0, le=10.0)
     confidence: float = Field(default=1.0, ge=0.0, le=1.0)
     source: Optional[str] = None
 
