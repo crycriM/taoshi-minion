@@ -26,7 +26,7 @@ signal_bridge/tests/test_bridge.py
 ```
 
 **Done when:** `python -c "from signal_bridge.main import app"` succeeds from
-`~/taoshi-miner/`.
+`~/projects/taoshi-miner/`.
 
 ---
 
@@ -94,7 +94,7 @@ to `DEFAULT_SIGNAL` before returning.
 - Abstract `BaseProvider` with `fetch_signals() -> List[Signal]`
 
 **Done when:** `uvicorn signal_bridge.main:app --reload` starts without error
-from `~/taoshi-miner/`.
+from `~/projects/taoshi-miner/`.
 
 ---
 
@@ -190,7 +190,7 @@ prints a non-empty response.
 ## Phase 4 — Configuration & Process Management
 
 ### TASK-11 · Write `.env` file
-**File:** `~/taoshi-miner/.env`
+**File:** `~/projects/taoshi-miner/.env`
 
 Based on PLAN.md §5.1. Populate all fields; leave `WANDB_API_KEY` blank.
 Verify `MIN_SIGNAL_AGE_SEC` is read correctly by the router (TASK-04).
@@ -201,10 +201,10 @@ load_dotenv(); assert os.getenv('SIGNAL_BRIDGE_PORT') == '8000'"` passes.
 ---
 
 ### TASK-12 · Write `pm2.config.js`
-**File:** `~/taoshi-miner/pm2.config.js`
+**File:** `~/projects/taoshi-miner/pm2.config.js`
 
 Based on PLAN.md §5.2 with corrections applied:
-- Add `cwd: "/home/cricri/taoshi-miner"` to `signal-bridge` app entry
+- Add `cwd: "/home/cricri/projects/taoshi-miner"` to `signal-bridge` app entry
 - Use flat string for `args` (not `.join(" ")` on an array)
 - `autorestart: true`, `max_restarts: 20`, `restart_delay` values as in plan
 
@@ -234,13 +234,13 @@ line when the bridge is stopped.
 **Goal:** Schedule `monitor.py` to run every 5 minutes.
 
 ```bash
-*/5 * * * * /home/cricri/taoshi-miner/venv/bin/python \
-    /home/cricri/taoshi-miner/scripts/monitor.py \
+*/5 * * * * /home/cricri/projects/taoshi-miner/venv/bin/python \
+    /home/cricri/projects/taoshi-miner/scripts/monitor.py \
     >> /var/log/taoshi-monitor.log 2>&1
 ```
 
 Ensure `/var/log/taoshi-monitor.log` is writable by the `cricri` user (or
-redirect to `~/taoshi-miner/logs/monitor.log`).
+redirect to `~/projects/taoshi-miner/logs/monitor.log`).
 
 **Done when:** `crontab -l` shows the entry and a log line appears within 5
 minutes.
